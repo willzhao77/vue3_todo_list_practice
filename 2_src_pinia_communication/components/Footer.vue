@@ -7,37 +7,26 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import eventBus from '@/libs/eventBus'
+import { computed } from 'vue';
+import { useTodoStore } from '@/stores/todo.js'
 
-eventBus.on('todoTotal', getTodoTotal)
-
-eventBus.on('todoDoneTotal', getDoneTotal)
-
-const total = ref(2)
-const doneTotal = ref(1)
+const store = useTodoStore()
 
 
-function getTodoTotal(num) {
-    total.value= num
-}
-
-function getDoneTotal(num) {
-    doneTotal.value = num
-}
-
+const total = computed(() => store.getTotal())
+const doneTotal = computed(() => store.getDoneTotal())
 
 const isAll = computed({
     get() {
         return total.value === doneTotal.value && total.value > 0
     },
     set(value) {
-        eventBus.emit('checkAllTodos', value)
+        store.checkAllTodos(value)
     }
 })
 
 const handleRemove = () => {
-    eventBus.emit('clearDone')
+    store.clearDone()
 }
 </script>
 

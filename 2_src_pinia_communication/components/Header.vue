@@ -7,13 +7,18 @@
 
 <script setup>
 import { ref } from 'vue'
-import eventBus from '@/libs/eventBus'
+
+
+import { useTodoStore } from '@/stores/todo.js'
+
+const store = useTodoStore()
+const { addTodo } = store
 
 const toDoTitle = ref()
 
-function add() {
-    eventBus.emit('addTodo', toDoTitle.value)
-}
+    function add() {
+        addTodo(toDoTitle.value);
+    }
 </script>
 
 <style scoped>

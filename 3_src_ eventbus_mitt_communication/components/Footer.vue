@@ -37,6 +37,7 @@ const isAll = computed({
 })
 
 const handleRemove = () => {
+    // store.clearDone()
     eventBus.emit('clearDone')
 }
 </script>

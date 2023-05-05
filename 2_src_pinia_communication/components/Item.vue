@@ -10,18 +10,21 @@
 
 <script setup>
 import { ref } from 'vue'
-import eventBus from '@/libs/eventBus'
+import { useTodoStore } from '@/stores/todo.js'
+
+const store = useTodoStore()
+const { changeStatus, updateTodo, deleteToDo } = store
 
 const props = defineProps(['todo'])
 const isEditing = ref(false)
 
 const handleClick = (id) => {
-    eventBus.emit('handleClick', id)
+    changeStatus(id)
 }
 
 const handleDelete = (id) => {
     if(confirm('Are you sure?')) {
-        eventBus.emit('handleDelete', id)
+        deleteToDo(id)
     }
 }
 
@@ -31,7 +34,7 @@ const handleEdit = () => {
 
 const handleBlur = (id, e) => {
     isEditing.value = false
-    eventBus.emit('updateTodo', {id:id, title: e.target.value})
+    updateTodo(id, e.target.value)
 
 }
 </script>
