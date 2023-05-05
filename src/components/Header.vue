@@ -7,17 +7,17 @@
 
 <script setup>
 import { ref } from 'vue'
-import { nanoid } from 'nanoid'
-import { state } from '@/state'
+
+
+import { useTodoStore } from '@/stores/todo.js'
+
+const store = useTodoStore()
+const { addTodo } = store
 
 const toDoTitle = ref()
 
     function add() {
-        state.todos.push({ 
-            id: nanoid(), 
-            title:toDoTitle.value, 
-            done: false
-        });
+        addTodo(toDoTitle.value);
     }
 </script>
 

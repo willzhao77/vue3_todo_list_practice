@@ -10,20 +10,21 @@
 
 <script setup>
 import { ref } from 'vue'
-import { state } from '@/state'
+import { useTodoStore } from '@/stores/todo.js'
+
+const store = useTodoStore()
+const { changeStatus, updateTodo, deleteToDo } = store
 
 const props = defineProps(['todo'])
 const isEditing = ref(false)
 
-
-
 const handleClick = (id) => {
-    state.changeStatus(id)
+    changeStatus(id)
 }
 
 const handleDelete = (id) => {
     if(confirm('Are you sure?')) {
-        state.deleteToDo(id)
+        deleteToDo(id)
     }
 }
 
@@ -33,7 +34,7 @@ const handleEdit = () => {
 
 const handleBlur = (id, e) => {
     isEditing.value = false
-    state.updateTodo(id, e.target.value)
+    updateTodo(id, e.target.value)
 
 }
 </script>

@@ -1,34 +1,32 @@
 <template>
     <div class="footer" v-if="total">
-        <!-- <input type="checkbox" :checked="isAll" @change="checkAll"> -->
         <input type="checkbox" v-model="isAll">
-        <div>Completed {{ totalDone }} / All {{ total }}</div>
+        <div>Completed {{ doneTotal }} / All {{ total }}</div>
         <button @click="handleRemove">Remove ALL Completed</button>
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import { state } from '@/state'
+import { useTodoStore } from '@/stores/todo.js'
 
-const total = computed(() => state.todos.length)
-const totalDone = computed(() => state.doneTotal())
-// const isAll = computed(() => total.value === totalDone.value && total.value > 0)
+const store = useTodoStore()
+
+
+const total = computed(() => store.getTotal())
+const doneTotal = computed(() => store.getDoneTotal())
+
 const isAll = computed({
     get() {
-        return total.value === totalDone.value && total.value > 0
+        return total.value === doneTotal.value && total.value > 0
     },
     set(value) {
-        state.checkAllTodos(value)
+        store.checkAllTodos(value)
     }
 })
 
-// const checkAll = (e) => {
-//     state.checkAllTodos(e.target.checked)
-// }
-
 const handleRemove = () => {
-    state.clearDone()
+    store.clearDone()
 }
 </script>
 
