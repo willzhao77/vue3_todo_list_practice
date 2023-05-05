@@ -1,6 +1,13 @@
 # vuetodolist
 
-This template should help get you started developing with Vue 3 in Vite.
+ToDoList practice. 
+
+Used different components communcation technologies.
+1. Ractive State
+2. Pinia
+3. EventBus (mitt)
+
+
 
 ## Recommended IDE Setup
 
